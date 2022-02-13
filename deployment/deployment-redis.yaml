@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hungerstation
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  namespace: hungerstation
+  labels:
+     name: redis-pod
+     app: backend
+spec:
+  selector:
+    matchLabels:
+      name: redis-pod
+      app: backend
+  replicas: 1
+  template:
+    metadata:
+      name: redis-pod 
+      labels:
+        name: redis-pod
+        app: backend
+    spec:
+      containers:
+      - name: redis-container
+        image: redis:alpine
+        ports:
+        - containerPort: 6379
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: hungerstation
+  labels:
+    name: redis-service
+spec:
+  ports:
+  - port: 6379
+    name: redis-something
+    targetPort: 6379
+  selector:
+     name: redis-pod
+     app: backend

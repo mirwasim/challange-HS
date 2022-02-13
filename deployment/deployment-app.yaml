@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hungerstation
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  namespace: hungerstation
+  labels:
+     env: production
+     app: frontend
+spec:
+  selector:
+    matchLabels:
+      env: production
+      app: frontend
+  replicas: 1
+  template:
+    metadata:
+      name: myapp-pod 
+      labels:
+        env: production
+        app: frontend
+    spec:
+      containers:
+      - name: myapp-container
+        image: 422434854706.dkr.ecr.us-east-1.amazonaws.com/bloomreach:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+           name: app-config
+        - secretRef:
+           name: app-secret
+
+       
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: myapp-service
+  namespace: hungerstation
+  labels:
+    name: myapp-service
+spec:
+  type: LoadBalancer 
+  ports:
+    - port: 80  
+      protocol: TCP
+      targetPort: 5000       
+  selector:
+    env: production
+    app: frontend
