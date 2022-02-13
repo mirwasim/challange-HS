@@ -16,6 +16,3 @@ docker-compose up
 ## The secrets and app-config is not part of the git versions
 
 ## Resource folder contain aws resource, along EKS .
-
-## hungerstation-app is helm chart
-## deployment folder have deployment files with out helm template

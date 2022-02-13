@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: 422434854706.dkr.ecr.us-east-1.amazonaws.com/bloomreach:latest
+  repository: mirwasim0/bloomreach
   pullPolicy: Always
   repositoryRedis: redis:alpine
   # Overrides the image tag whose default is the chart appVersion.

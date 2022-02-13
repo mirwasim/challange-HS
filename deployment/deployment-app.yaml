@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: myapp-container
-        image: 422434854706.dkr.ecr.us-east-1.amazonaws.com/bloomreach:latest
+        image: mirwasim0/bloomreach
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
