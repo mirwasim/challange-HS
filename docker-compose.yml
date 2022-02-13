@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app:
+    build: ./app/
+    # App will be listening on port 5000
+    ports:
+      - "5000:5000"
+    environment:
+      # START Non secret environmental variables variables
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      # END Non secret environmental variables variables
+
+      # START Secret environmental variables
+      USERNAME: bob
+      PASSWORD: thebuilder
+      THEBIGSECRET: "I love cookies."
+      # END Secret environmental variables
+  # Redis is a requirement for this app to work.
+  redis:
+    image: "redis:alpine"
