@@ -1,0 +1,33 @@
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: hungerstation
+# ---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: deployment-autoscaler-webapp
+  namespace: hungerstation
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: myapp-deployment
+  minReplicas: {{ .Values.autoscaling.minReplicas}}
+  maxReplicas: {{ .Values.autoscaling.maxReplicas}}
+  targetCPUUtilizationPercentage: {{ .Values.autoscaling.targetCPUUtilizationPercentage}}
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: deployment-autoscaler-redis
+  namespace: hungerstation
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: redis-deployment
+  minReplicas: {{ .Values.autoscaling.minReplicas}}
+  maxReplicas: {{ .Values.autoscaling.maxReplicas}}
+  targetCPUUtilizationPercentage: {{ .Values.autoscaling.targetCPUUtilizationPercentage}}
