@@ -4,7 +4,7 @@
 #   name: hungerstation
 # ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: redis-deployment
   namespace: hungerstation
@@ -16,6 +16,7 @@ spec:
     matchLabels:
       name: redis-pod
       app: backend
+  serviceName: redis
   replicas: 1
   template:
     metadata:
@@ -66,3 +67,4 @@ spec:
   selector:
      name: redis-pod
      app: backend
+  clusterIP: None

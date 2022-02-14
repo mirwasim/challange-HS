@@ -16,7 +16,7 @@ Parameters:
   KeyName:
     Type: AWS::EC2::KeyPair::KeyName
     Description: "Name of an existing SSH Keypair to access the instance"
-    Default: "Bloomreach-waseem"
+    Default: "my-key"
 
   VpcBlock:
     Type: String
@@ -403,7 +403,7 @@ Resources:
         - !Ref InstanceSecurityGroup
       Tags:
         - Key: Name
-          Value: Bloomreach-PublicEC2
+          Value: PublicEC2
           
   InstanceSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
@@ -619,25 +619,25 @@ Resources:
         - ResourceType: instance
           Tags:
           - Key: Name
-            Value: Bloomreach-ekscluster-new-Bloomreach-eks-workernode-new-Node
+            Value: eks-workernode-new-Node
           - Key: nodegroup-name
-            Value: Bloomreach-eks-workernode-new
+            Value: eks-workernode-new
           - Key: nodegroup-type
             Value: managed
         - ResourceType: volume
           Tags:
           - Key: Name
-            Value: Bloomreach-ekscluster-new-Bloomreach-eks-workernode-new-Node
+            Value: eks-workernode-new-Node
           - Key: nodegroup-name
-            Value: Bloomreach-eks-workernode-new
+            Value: eks-workernode-new
           - Key: nodegroup-type
             Value: managed
         - ResourceType: network-interface
           Tags:
           - Key: Name
-            Value: Bloomreach-ekscluster-new-Bloomreach-eks-workernode-new-Node
+            Value: eks-workernode-new-Node
           - Key: nodegroup-name
-            Value: Bloomreach-eks-workernode-new
+            Value: eks-workernode-new
           - Key: nodegroup-type
             Value: managed
       LaunchTemplateName:
@@ -652,8 +652,8 @@ Resources:
       InstanceTypes: 
         - !Ref WorkerNodesInstanceType
       Labels:
-        alpha.eksctl.io/cluster-name: Bloomreach-ekscluster-new
-        alpha.eksctl.io/nodegroup-name: Bloomreach-eks-workernode-new
+        alpha.eksctl.io/cluster-name: ekscluster-new
+        alpha.eksctl.io/nodegroup-name: eks-workernode-new
       LaunchTemplate:
         Id: !Ref LaunchTemplate
       NodeRole:
@@ -666,11 +666,11 @@ Resources:
         MaxSize: !Ref NumWorkerNodes
         MinSize: !Ref NumWorkerNodes
       Subnets:
-        - !Ref PublicSubnet01
-        - !Ref PublicSubnet02
-        - !Ref PublicSubnet03
+        - !Ref PrivateSubnet01
+        - !Ref PrivateSubnet02
+        - !Ref PrivateSubnet03
       Tags:
-        alpha.eksctl.io/nodegroup-name: Bloomreach-eks-workernode-new
+        alpha.eksctl.io/nodegroup-name: eks-workernode-new
         alpha.eksctl.io/nodegroup-type: managed
         
   NodeInstanceRole:
